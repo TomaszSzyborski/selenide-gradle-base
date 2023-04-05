@@ -31,8 +31,8 @@ dependencies {
 //    testImplementation group: 'io.cucumber', name: 'cucumber-expressions', version: '16.1.2'
 //    implementation group: 'io.cucumber', name: 'cucumber-guice', version: '7.11.2'
 //    testImplementation group: 'io.cucumber', name: 'cucumber-guice', version: '7.11.2'
-//    implementation group: 'com.google.inject', name: 'guice', version: '5.1.0'
-//    testImplementation group: 'com.google.inject', name: 'guice', version: '5.1.0'
+    implementation group: 'com.google.inject', name: 'guice', version: '5.1.0'
+    testImplementation group: 'com.google.inject', name: 'guice', version: '5.1.0'
 //
 //    implementation group: 'io.rest-assured', name: 'rest-assured', version: '5.3.0'
 //    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '5.3.0'
@@ -103,9 +103,12 @@ allure {
 }
 
 test {
+    def threadsNumber = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+    project.logger.lifecycle("Running tests with ${threadsNumber} threads ")
+
     useTestNG() {
         parallel = "methods"
-        threadCount = 10
+        threadCount = threadsNumber
         suites 'src/test/resources/testng1.xml'
         useDefaultListeners true
     }
