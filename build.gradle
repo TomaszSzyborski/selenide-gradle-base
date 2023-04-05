@@ -1,0 +1,112 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id "com.diffplug.spotless" version "6.17.0"
+    id'io.qameta.allure' version '2.11.2'
+
+}
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+group 'com.tomasz'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    gradlePluginPortal()
+}
+def cucumberVersion = '7.11.2'
+def allureVersion = '2.21.0'
+
+dependencies {
+//    testImplementation group: 'org.apache.groovy', name: 'groovy-all', version: '4.0.11', ext: 'pom'
+//    implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.0-alpha1'
+//    implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.0-alpha1'
+    implementation group: 'com.codeborne', name: 'selenide', version: '6.13.0'
+//    implementation group: 'org.apache.poi', name: 'poi', version: '4.1.1'
+
+//    testImplementation group: 'io.cucumber', name: 'cucumber-core', version: cucumberVersion
+//    testImplementation group: 'io.cucumber', name: 'cucumber-junit', version: cucumberVersion
+//    testImplementation group: 'io.cucumber', name: 'cucumber-expressions', version: '16.1.2'
+//    implementation group: 'io.cucumber', name: 'cucumber-guice', version: '7.11.2'
+//    testImplementation group: 'io.cucumber', name: 'cucumber-guice', version: '7.11.2'
+//    implementation group: 'com.google.inject', name: 'guice', version: '5.1.0'
+//    testImplementation group: 'com.google.inject', name: 'guice', version: '5.1.0'
+//
+//    implementation group: 'io.rest-assured', name: 'rest-assured', version: '5.3.0'
+//    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '5.3.0'
+//    implementation group: 'io.rest-assured', name: 'xml-path', version: '5.3.0'
+//    testImplementation group: 'io.rest-assured', name: 'xml-path', version: '5.3.0'
+//    implementation group: 'org.assertj', name: 'assertj-core', version: '3.24.2'
+//    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.24.2'
+
+//    implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.0-alpha1'
+//    implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.0-alpha1'
+
+    testImplementation group: 'org.testng', name: 'testng', version: '7.7.1'
+
+    implementation group: 'io.qameta.allure', name: 'allure-testng', version: allureVersion
+    testImplementation group: 'io.qameta.allure', name: 'allure-testng', version: allureVersion
+    implementation group: 'io.qameta.allure', name: 'allure-selenide', version: allureVersion
+    testImplementation group: 'io.qameta.allure', name: 'allure-selenide', version: allureVersion
+//    implementation group: 'io.qameta.allure', name: 'allure-rest-assured', version: allureVersion
+//    testImplementation group: 'io.qameta.allure', name: 'allure-rest-assured', version: allureVersion
+    // https://mvnrepository.com/artifact/io.qameta.allure/allure-gradle
+    implementation group: 'io.qameta.allure', name: 'allure-gradle', version: '2.8.1'
+
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+
+//    implementation group: 'io.netty', name: 'netty-handler', version: '4.1.73.Final'
+//    implementation group: 'com.browserup', name: 'browserup-proxy-core', version: '2.1.2'
+
+
+//    implementation group: 'org.awaitility', name: 'awaitility', version: '4.0.3'
+//    testImplementation group: 'org.awaitility', name: 'awaitility', version: '4.0.3'
+
+//    implementation group: 'joda-time', name: 'joda-time', version: '2.10.6'
+//    implementation group: 'org.jooq', name: 'jooq', version: '3.14.4'
+//    implementation group: "com.ibm.db2", name: "jcc", version: '11.5.5.0'
+
+//    implementation group: 'com.atlassian.jira', name: 'jira-rest-java-client-core', version: '5.2.4'
+//    testImplementation group: 'com.atlassian.jira', name: 'jira-rest-java-client-core', version: '5.2.4'
+
+
+//    testImplementation group: 'io.atlassian.fugue', name: 'fugue', version: '4.7.2'
+//    implementation group: 'io.atlassian.fugue', name: 'fugue', version: '4.7.2'
+
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.26'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
+}
+
+spotless {
+    java {
+        target fileTree('.') {
+            include '**/*.java'
+            exclude '**/build/**', '**/build-*/**'
+        }
+        eclipse().configFile file('spotlessConfiguration/spotless-configuration.xml')
+        importOrder "java,javax,static java,static javax,static", ".*"
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+
+allure {
+    version = allureVersion
+}
+
+test {
+    useTestNG() {
+        parallel = "methods"
+        threadCount = 10
+        suites 'src/test/resources/testng1.xml'
+        useDefaultListeners true
+    }
+}
