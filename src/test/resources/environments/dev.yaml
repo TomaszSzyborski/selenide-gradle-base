@@ -1,0 +1,6 @@
+environmentName: dev
+APIUrl: http://0.0.0.0:9011
+FrontEndUrl: http://0.0.0.0:3000
+users:
+  username: someone
+  password: somepass
