@@ -11,7 +11,7 @@ import org.testng.annotations.*;
 
 @Listeners({ScreenshotOnFailureListener.class})
 public abstract class BaseTest {
-  //TODO abstract classes or interfaces for tests?
+  // TODO abstract classes or interfaces for tests?
   // interfaces would segregate API from UI tests, and merge them if required
   protected final MainPage mainPage = new MainPage();
 
@@ -31,6 +31,6 @@ public abstract class BaseTest {
 
   @BeforeMethod(description = "Opening the Browser")
   public void openBrowser() {
-    open("/fj");
+    open("/");
   }
 }

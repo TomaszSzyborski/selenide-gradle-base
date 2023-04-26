@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public final class Fake implements Faking {
   private final Faker faker = new Faker();
 
-  public final Faker with() {
+  public Faker with() {
     return faker;
   }
 }
