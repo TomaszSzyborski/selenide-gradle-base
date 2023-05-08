@@ -105,6 +105,12 @@ allure {
     version = allureVersion
 }
 
+tasks.withType(Test) {
+    doFirst {
+        spotlessApply
+    }
+}
+
 test {
     def threadsNumber = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
     project.logger.lifecycle("Running tests with ${threadsNumber} threads ")
