@@ -3,11 +3,15 @@ package com.tomasz.tests;
 import static com.codeborne.selenide.Selenide.open;
 
 import com.codeborne.selenide.Configuration;
+import com.google.inject.Inject;
 import com.tomasz.core.Config;
 import com.tomasz.listeners.ScreenshotOnFailureListener;
 import com.tomasz.pages.MainPage;
 import com.tomasz.rest.actions.AdministrativePurge;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Listeners;
 
 @Listeners({ScreenshotOnFailureListener.class})
 public abstract class BaseTest {
