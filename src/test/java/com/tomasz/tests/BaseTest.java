@@ -1,6 +1,7 @@
 package com.tomasz.tests;
 
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.webdriver;
 
 import com.codeborne.selenide.Configuration;
 import com.google.inject.Inject;
@@ -41,5 +42,6 @@ public abstract class BaseTest {
   @BeforeMethod(description = "Opening the Browser")
   public void openBrowser() {
     open("/");
+    webdriver().object().manage().window().maximize();
   }
 }
