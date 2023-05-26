@@ -15,3 +15,19 @@ will trigger `spotlessApply` automatically.
 Remember to avoid AVOID WILDCARD IMPORTS at all costs:
 The solution is to go to Preferences ( ⌘ + , on macOS / Ctrl + Alt + S on Windows and Linux) > Editor > Code
 Style > Java > Imports tab set Class count to use static imports with * to 999 
+
+
+when presented with:
+```
+> Task :test FAILED
+FAILURE: Build failed with an exception.
+* What went wrong:
+Execution failed for task ':test'.
+> No tests found for given includes: 
+```
+
+Go for:
+File > Setting (Ctrl+Alt+S)
+Build, Execution, Deployment > Build Tools > gradle
+Run Tests using: Intellij IDEA
+All credit to: https://linked2ev.github.io/devsub/2019/09/30/Intellij-junit4-gradle-issue/.

@@ -13,6 +13,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Listeners;
 
+import java.time.Duration;
+
 @Listeners({ScreenshotOnFailureListener.class})
 public abstract class BaseTest {
   // TODO abstract classes or interfaces for tests?
@@ -27,10 +29,13 @@ public abstract class BaseTest {
   @BeforeSuite
   public static void selenideConfiguration() {
     Configuration.baseUrl = Config.getProperties().getProperty("FrontEndUrl");
-    Configuration.headless = true;
+    Configuration.headless = Boolean.parseBoolean(System.getProperty("headless"));
+    Configuration.browserSize = "1920x1200";
+    Configuration.browserPosition = "0x0";
     Configuration.driverManagerEnabled = true;
     Configuration.holdBrowserOpen = false;
     Configuration.reopenBrowserOnFail = false;
+    Configuration.timeout = Duration.ofSeconds(10).toMillis();
   }
 
   @BeforeMethod(description = "Opening the Browser")
