@@ -2,10 +2,10 @@ package com.tomasz.tests;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.webdriver;
+import static com.tomasz.core.PropertySupplier.getEnvironmentConfigurationData;
 
 import com.codeborne.selenide.Configuration;
-import com.google.inject.Inject;
-import com.tomasz.core.Config;
+import com.tomasz.core.PropertySupplier;
 import com.tomasz.listeners.ScreenshotOnFailureListener;
 import com.tomasz.pages.MainPage;
 import com.tomasz.rest.actions.AdministrativePurge;
@@ -29,8 +29,8 @@ public abstract class BaseTest {
 
   @BeforeSuite
   public static void selenideConfiguration() {
-    Configuration.baseUrl = Config.getProperties().getProperty("FrontEndUrl");
-    Configuration.headless = Boolean.parseBoolean(System.getProperty("headless"));
+    Configuration.baseUrl = getEnvironmentConfigurationData().getFrontEndUrl();
+    Configuration.headless = Boolean.parseBoolean(System.getProperty("headless", "true"));
     Configuration.browserSize = "1920x1200";
     Configuration.browserPosition = "0x0";
     Configuration.driverManagerEnabled = true;

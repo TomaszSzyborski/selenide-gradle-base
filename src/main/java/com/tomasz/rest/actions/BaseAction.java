@@ -2,7 +2,7 @@ package com.tomasz.rest.actions;
 
 import static io.restassured.RestAssured.given;
 
-import com.tomasz.core.Config;
+import com.tomasz.core.PropertySupplier;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
@@ -20,7 +20,7 @@ public abstract class BaseAction {
     // authScheme.setPassword(password);
     // requestSpecBuilder.setAuth(authScheme);
 
-    requestSpecBuilder.setBaseUri(Config.getProperties().getProperty("APIUrl"));
+    requestSpecBuilder.setBaseUri(PropertySupplier.getProperties().getProperty("APIUrl"));
     requestSpecBuilder.addHeader("Content-Type", "application/json");
     requestSpecBuilder.addHeader("Accept", "application/json");
     requestSpecification = requestSpecBuilder.build();

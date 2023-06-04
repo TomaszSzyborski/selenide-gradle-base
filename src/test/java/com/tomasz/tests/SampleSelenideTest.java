@@ -21,7 +21,7 @@ import org.testng.annotations.Test;
 
 @Slf4j
 @Guice(modules = FakingModule.class)
-public class SampleSelenideTest implements SelenideTest {
+public class SampleSelenideTest extends BaseTest {
 
   @Inject
   Faking faking;
