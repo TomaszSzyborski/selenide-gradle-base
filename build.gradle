@@ -110,13 +110,18 @@ tasks.withType(Test).configureEach {
     doFirst {
         spotlessApply
     }
-
     retry {
         maxRetries = 2
     }
 }
 
-test {
+tasks.named('test', Test) {
+    finalizedBy {
+        spotlessApply
+    }
+    dependsOn {
+        spotlessApply
+    }
     def threadsNumber = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
     project.logger.lifecycle("Running tests with ${threadsNumber} threads ")
 
