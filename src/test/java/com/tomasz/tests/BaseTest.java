@@ -5,16 +5,14 @@ import static com.codeborne.selenide.Selenide.webdriver;
 import static com.tomasz.core.PropertySupplier.getEnvironmentConfigurationData;
 
 import com.codeborne.selenide.Configuration;
-import com.tomasz.core.PropertySupplier;
 import com.tomasz.listeners.ScreenshotOnFailureListener;
 import com.tomasz.pages.MainPage;
 import com.tomasz.rest.actions.AdministrativePurge;
+import java.time.Duration;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Listeners;
-
-import java.time.Duration;
 
 @Listeners({ScreenshotOnFailureListener.class})
 public abstract class BaseTest {
@@ -22,15 +20,16 @@ public abstract class BaseTest {
   // interfaces would segregate API from UI tests, and merge them if required
   protected final MainPage mainPage = new MainPage();
 
-  @AfterClass(description = "Purging the data after each test")
-  public void purgeData() {
-    AdministrativePurge.perform();
-  }
+//  @AfterClass(description = "Purging the data after each test")
+//  public void purgeData() {
+//    AdministrativePurge.perform();
+//  }
 
   @BeforeSuite
   public static void selenideConfiguration() {
     Configuration.baseUrl = getEnvironmentConfigurationData().getFrontEndUrl();
-    Configuration.headless = Boolean.parseBoolean(System.getProperty("headless", "true"));
+//    Configuration.headless = Boolean.parseBoolean(System.getProperty("headless", "true"));
+    Configuration.headless = false;
     Configuration.browserSize = "1920x1200";
     Configuration.browserPosition = "0x0";
     Configuration.driverManagerEnabled = true;

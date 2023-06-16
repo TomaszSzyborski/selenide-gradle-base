@@ -20,7 +20,7 @@ public abstract class BaseAction {
     // authScheme.setPassword(password);
     // requestSpecBuilder.setAuth(authScheme);
 
-    requestSpecBuilder.setBaseUri(PropertySupplier.getProperties().getProperty("APIUrl"));
+    requestSpecBuilder.setBaseUri(PropertySupplier.getEnvironmentConfigurationData().getApiUrl());
     requestSpecBuilder.addHeader("Content-Type", "application/json");
     requestSpecBuilder.addHeader("Accept", "application/json");
     requestSpecification = requestSpecBuilder.build();

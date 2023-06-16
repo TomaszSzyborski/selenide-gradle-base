@@ -1,6 +1,6 @@
 environmentName: uat
-APIUrl: https://rbmk-reactor.onrender.com/challenge/reactor
-FrontEndUrl: https://rbmk-reactor-test.onrender.com
-users:
+apiUrl: https://rbmk-reactor.onrender.com/challenge/reactor
+frontEndUrl: https://rbmk-reactor-test.onrender.com
+user:
   username: someone
   password: somepass
