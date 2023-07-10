@@ -5,10 +5,16 @@ import static com.codeborne.selenide.Selenide.webdriver;
 import static com.tomasz.core.PropertySupplier.getEnvironmentConfigurationData;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.WebDriverRunner;
 import com.tomasz.listeners.ScreenshotOnFailureListener;
+import com.tomasz.listeners.SpinnerListener;
 import com.tomasz.pages.MainPage;
 import com.tomasz.rest.actions.AdministrativePurge;
 import java.time.Duration;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.events.EventFiringDecorator;
+import org.openqa.selenium.support.events.WebDriverListener;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
@@ -28,8 +34,7 @@ public abstract class BaseTest {
   @BeforeSuite
   public static void selenideConfiguration() {
     Configuration.baseUrl = getEnvironmentConfigurationData().getFrontEndUrl();
-//    Configuration.headless = Boolean.parseBoolean(System.getProperty("headless", "true"));
-    Configuration.headless = false;
+    Configuration.headless = Boolean.parseBoolean(System.getProperty("headless", "true"));
     Configuration.browserSize = "1920x1200";
     Configuration.browserPosition = "0x0";
     Configuration.driverManagerEnabled = true;
@@ -40,6 +45,14 @@ public abstract class BaseTest {
 
   @BeforeMethod(description = "Opening the Browser")
   public void openBrowser() {
+    WebDriverListener listener = new SpinnerListener();
+    WebDriverRunner.addListener(listener);
+    WebDriver original = WebDriverRunner.getAndCheckWebDriver();
+    WebDriverRunner.setWebDriver(
+            new EventFiringDecorator<>(listener)
+                    .decorate(original)
+    );
+
     open("/");
     webdriver().object().manage().window().maximize();
   }
