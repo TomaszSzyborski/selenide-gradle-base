@@ -9,13 +9,10 @@ import com.codeborne.selenide.WebDriverRunner;
 import com.tomasz.listeners.ScreenshotOnFailureListener;
 import com.tomasz.listeners.SpinnerListener;
 import com.tomasz.pages.MainPage;
-import com.tomasz.rest.actions.AdministrativePurge;
 import java.time.Duration;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.events.EventFiringDecorator;
 import org.openqa.selenium.support.events.WebDriverListener;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Listeners;
@@ -26,10 +23,10 @@ public abstract class BaseTest {
   // interfaces would segregate API from UI tests, and merge them if required
   protected final MainPage mainPage = new MainPage();
 
-//  @AfterClass(description = "Purging the data after each test")
-//  public void purgeData() {
-//    AdministrativePurge.perform();
-//  }
+  // @AfterClass(description = "Purging the data after each test")
+  // public void purgeData() {
+  // AdministrativePurge.perform();
+  // }
 
   @BeforeSuite
   public static void selenideConfiguration() {
@@ -49,9 +46,8 @@ public abstract class BaseTest {
     WebDriverRunner.addListener(listener);
     WebDriver original = WebDriverRunner.getAndCheckWebDriver();
     WebDriverRunner.setWebDriver(
-            new EventFiringDecorator<>(listener)
-                    .decorate(original)
-    );
+        new EventFiringDecorator<>(listener)
+            .decorate(original));
 
     open("/");
     webdriver().object().manage().window().maximize();
