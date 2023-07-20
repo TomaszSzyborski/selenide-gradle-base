@@ -3,8 +3,12 @@ plugins {
     id 'groovy'
     id 'org.gradle.test-retry' version '1.5.3'
     id "com.diffplug.spotless" version "6.17.0"
-    id'io.qameta.allure' version '2.11.2'
-
+    id 'io.qameta.allure' version '2.11.2'
+    id 'io.qameta.allure-adapter' version '2.11.2'
+}
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -106,6 +110,22 @@ spotless {
 
 allure {
     version = allureVersion
+    adapter {
+        frameworks {
+            testng {
+                enabled.set(true)
+            }
+        }
+    }
+
+    useTestNG {
+        version = '2.0-BETA12'
+    }
+
+    report {
+        dependsOnTests.set(true)
+        setTestReportDirName("${project.buildDir}/allure-report")
+    }
 }
 
 tasks.withType(Test).configureEach {
