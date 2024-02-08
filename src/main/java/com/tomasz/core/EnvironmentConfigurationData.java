@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class EnvironmentConfigurationData {
-  // TODO create model of configuration data
-  private String environmentName;
-  private String frontEndUrl;
-  private String apiUrl;
-  private User user;
+    // TODO create model of configuration data
+    private String environmentName;
+    private String frontEndUrl;
+    private String apiUrl;
+    private User user;
 }

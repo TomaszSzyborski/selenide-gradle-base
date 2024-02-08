@@ -12,16 +12,16 @@ import lombok.SneakyThrows;
 
 public class Desk extends BaseAction {
 
-  @SneakyThrows
-  @Step("Picking up key form the desk for {commander.name}")
-  public static ValidatableResponse pickupControlRoomKey(CreateCommanderPayload commander) {
-    return given()
-        .spec(requestSpecification)
-        .contentType(ContentType.JSON)
-        .log().ifValidationFails(LogDetail.ALL, true)
-        .body(commander)
-        .when()
-        .post(Endpoints.DESK.getEndpoint())
-        .then();
-  }
+    @SneakyThrows
+    @Step("Picking up key form the desk for {commander.name}")
+    public static ValidatableResponse pickupControlRoomKey(CreateCommanderPayload commander) {
+        return given()
+                .spec(requestSpecification)
+                .contentType(ContentType.JSON)
+                .log().ifValidationFails(LogDetail.ALL, true)
+                .body(commander)
+                .when()
+                .post(Endpoints.DESK.getEndpoint())
+                .then();
+    }
 }

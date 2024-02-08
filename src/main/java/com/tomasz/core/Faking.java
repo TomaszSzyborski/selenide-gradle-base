@@ -1,7 +1,8 @@
 package com.tomasz.core;
 
-import com.github.javafaker.Faker;
+
+import net.datafaker.Faker;
 
 public interface Faking {
-  Faker with();
+    Faker with();
 }

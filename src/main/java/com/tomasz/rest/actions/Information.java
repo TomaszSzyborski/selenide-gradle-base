@@ -9,17 +9,17 @@ import lombok.SneakyThrows;
 
 public class Information extends BaseAction {
 
-  @SneakyThrows
-  public static Response getInformation() {
-    return given()
-        .log().ifValidationFails()
-        .spec(requestSpecification)
-        .contentType(ContentType.JSON)
-        .when()
-        .get(Endpoints.INFORMATION.getEndpoint())
-        .then()
-        .log().ifValidationFails()
-        .extract()
-        .response();
-  }
+    @SneakyThrows
+    public static Response getInformation() {
+        return given()
+                .log().ifValidationFails()
+                .spec(requestSpecification)
+                .contentType(ContentType.JSON)
+                .when()
+                .get(Endpoints.INFORMATION.getEndpoint())
+                .then()
+                .log().ifValidationFails()
+                .extract()
+                .response();
+    }
 }

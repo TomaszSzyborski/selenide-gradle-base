@@ -6,10 +6,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Endpoints {
-  INFORMATION("/information"),
-  DESK("/desk"),
-  CONTROL_ROOM("/{key}/control_room"),
-  CONTROL_RODS("/{key}/control_rods/{index}");
+    INFORMATION("/information"),
+    DESK("/desk"),
+    CONTROL_ROOM("/{key}/control_room"),
+    CONTROL_RODS("/{key}/control_rods/{index}");
 
-  private final String endpoint;
+    private final String endpoint;
 }

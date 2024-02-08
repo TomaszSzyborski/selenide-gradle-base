@@ -10,27 +10,28 @@ import io.restassured.specification.RequestSpecification;
 
 public abstract class BaseAction {
 
-  protected static final RequestSpecification requestSpecification;
+    protected static final RequestSpecification requestSpecification;
 
-  static {
-    var requestSpecBuilder = new RequestSpecBuilder();
-    // use authScheme if auth is needed
-    // var authScheme = new PreemptiveBasicAuthScheme();
-    // authScheme.setUserName(username);
-    // authScheme.setPassword(password);
-    // requestSpecBuilder.setAuth(authScheme);
+    static {
+        var requestSpecBuilder = new RequestSpecBuilder();
+        // use authScheme if auth is needed
+        // var authScheme = new PreemptiveBasicAuthScheme();
+        // authScheme.setUserName(username);
+        // authScheme.setPassword(password);
+        // requestSpecBuilder.setAuth(authScheme);
 
-    requestSpecBuilder.setBaseUri(PropertySupplier.getEnvironmentConfigurationData().getApiUrl());
-    requestSpecBuilder.addHeader("Content-Type", "application/json");
-    requestSpecBuilder.addHeader("Accept", "application/json");
-    requestSpecification = requestSpecBuilder.build();
-  }
+        requestSpecBuilder
+                .setBaseUri(PropertySupplier.getEnvironmentConfigurationData().getApiUrl());
+        requestSpecBuilder.addHeader("Content-Type", "application/json");
+        requestSpecBuilder.addHeader("Accept", "application/json");
+        requestSpecification = requestSpecBuilder.build();
+    }
 
-  protected static RequestSpecification api() {
-    return given()
-        .log().ifValidationFails(LogDetail.ALL, true)
-        .spec(requestSpecification)
-        .contentType(ContentType.JSON)
-        .when();
-  }
+    protected static RequestSpecification api() {
+        return given()
+                .log().ifValidationFails(LogDetail.ALL, true)
+                .spec(requestSpecification)
+                .contentType(ContentType.JSON)
+                .when();
+    }
 }

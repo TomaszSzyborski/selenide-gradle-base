@@ -19,37 +19,37 @@ import org.testng.annotations.Listeners;
 
 @Listeners({ScreenshotOnFailureListener.class})
 public abstract class BaseTest {
-  // TODO abstract classes or interfaces for tests?
-  // interfaces would segregate API from UI tests, and merge them if required
-  protected final MainPage mainPage = new MainPage();
+    // TODO abstract classes or interfaces for tests?
+    // interfaces would segregate API from UI tests, and merge them if required
+    protected final MainPage mainPage = new MainPage();
 
-  // @AfterClass(description = "Purging the data after each test")
-  // public void purgeData() {
-  // AdministrativePurge.perform();
-  // }
+    // @AfterClass(description = "Purging the data after each test")
+    // public void purgeData() {
+    // AdministrativePurge.perform();
+    // }
 
-  @BeforeSuite
-  public static void selenideConfiguration() {
-    Configuration.baseUrl = getEnvironmentConfigurationData().getFrontEndUrl();
-    Configuration.headless = Boolean.parseBoolean(System.getProperty("headless", "true"));
-    Configuration.browserSize = "1920x1200";
-    Configuration.browserPosition = "0x0";
-    Configuration.driverManagerEnabled = true;
-    Configuration.holdBrowserOpen = false;
-    Configuration.reopenBrowserOnFail = false;
-    Configuration.timeout = Duration.ofSeconds(10).toMillis();
-  }
+    @BeforeSuite
+    public static void selenideConfiguration() {
+        Configuration.baseUrl = getEnvironmentConfigurationData().getFrontEndUrl();
+        Configuration.headless = Boolean.parseBoolean(System.getProperty("headless", "true"));
+        Configuration.browserSize = "1920x1200";
+        Configuration.browserPosition = "0x0";
+        Configuration.driverManagerEnabled = true;
+        Configuration.holdBrowserOpen = false;
+        Configuration.reopenBrowserOnFail = false;
+        Configuration.timeout = Duration.ofSeconds(10).toMillis();
+    }
 
-  @BeforeMethod(description = "Opening the Browser")
-  public void openBrowser() {
-    WebDriverListener listener = new SpinnerListener();
-    WebDriverRunner.addListener(listener);
-    WebDriver original = WebDriverRunner.getAndCheckWebDriver();
-    WebDriverRunner.setWebDriver(
-        new EventFiringDecorator<>(listener)
-            .decorate(original));
+    @BeforeMethod(description = "Opening the Browser")
+    public void openBrowser() {
+        WebDriverListener listener = new SpinnerListener();
+        WebDriverRunner.addListener(listener);
+        WebDriver original = WebDriverRunner.getAndCheckWebDriver();
+        WebDriverRunner.setWebDriver(
+                new EventFiringDecorator<>(listener)
+                        .decorate(original));
 
-    open("/");
-    webdriver().object().manage().window().maximize();
-  }
+        open("/");
+        webdriver().object().manage().window().maximize();
+    }
 }
